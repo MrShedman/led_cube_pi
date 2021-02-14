@@ -12,19 +12,24 @@ using namespace rgb_matrix;
 
 #include "effects/ColorPulseEffect.hpp"
 
+#include "ConfigParser.hpp"
+
 int main(int argc, char *argv[])
 {
+    ConfigParser configParser;
+    configParser.parseYaml("../../res/config.yaml");
+
     int demo = -1;
     int scroll_ms = 30;
 
     const char *demo_parameter = NULL;
-    RGBMatrix::Options matrix_options;
-    rgb_matrix::RuntimeOptions runtime_opt;
+    RGBMatrix::Options matrix_options = configParser.getMatrixOptions();
+    rgb_matrix::RuntimeOptions runtime_opt = configParser.getRuntimeOptions();
 
     // These are the defaults when no command-line flags are given.
-    matrix_options.rows = 32;
-    matrix_options.chain_length = 1;
-    matrix_options.parallel = 1;
+    // matrix_options.rows = 32;
+    // matrix_options.chain_length = 1;
+    // matrix_options.parallel = 1;
 
     // First things first: extract the command line flags that contain
     // relevant matrix options.
