@@ -11,29 +11,34 @@ find_package(YAML-CPP REQUIRED)
 
 add_definitions(-DGLM_ENABLE_EXPERIMENTAL)
 
+file(GLOB rpi_matrix_HEADERS lib/matrix/include/*.h)
+file(GLOB rpi_matrix_SOURCES lib/matrix/lib/*.c*)
 
-include_directories(${PROJECT_SOURCE_DIR}/lib/matrix/lib)
-include_directories(${PROJECT_SOURCE_DIR}/lib/matrix/include)
+add_library(rpi_matrix STATIC ${rpi_matrix_HEADERS} ${rpi_matrix_SOURCES})
 
-file(GLOB_RECURSE RGB_SRC_FILES ${PROJECT_SOURCE_DIR}/lib/matrix/lib/*.cc)
-file(GLOB_RECURSE RGB_SRC_FILES ${PROJECT_SOURCE_DIR}/lib/matrix/lib/*.c)
-file(GLOB_RECURSE RGB_HEADER_FILES ${PROJECT_SOURCE_DIR}/lib/matrix/include/*.h)
+target_link_libraries(rpi_matrix
+	pthread
+	rt
+	m)
 
 include_directories(
     ${GLM_INCLUDE_DIRS}
     ${YAML_CPP_INCLUDE_DIR}
     include/
     src/
+    src/effects/
     src/math/
     src/rendering/
     src/resource/
     lib/
+    lib/matrix/include/
 )
 
 add_executable( ${APP_NAME} 
 ./src/main.cpp
 ./src/Application.cpp
 ./src/Utilities.cpp
+./src/effects/EffectBase.cpp
 ./src/math/Angle.cpp
 ./src/rendering/Image.cpp
 ./src/rendering/Transform.cpp
@@ -42,10 +47,9 @@ add_executable( ${APP_NAME}
 ./lib/chrono/rate.cpp
 ./lib/chrono/time.cpp
 ./lib/filter/filter.cpp
-${RGB_SRC_FILES}
 )
 
 target_link_libraries( ${APP_NAME} 
 ${YAML_CPP_LIBRARIES}
--lpthread curl
+rpi_matrix
 )
