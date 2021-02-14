@@ -6,7 +6,7 @@
 class ColorPulseEffect : public EffectBase
 {
 public:
-    ColorPulseEffect(RGBMatrix *m) : EffectBase(m), matrix_(m)
+    ColorPulseEffect(rgb_matrix::RGBMatrix *m) : EffectBase(m), matrix_(m)
     {
         off_screen_canvas_ = m->CreateFrameCanvas();
     }
@@ -45,6 +45,6 @@ public:
 
 private:
     uint32_t continuum;
-    RGBMatrix *const matrix_;
-    FrameCanvas *off_screen_canvas_;
+    rgb_matrix::RGBMatrix *const matrix_;
+    rgb_matrix::FrameCanvas *off_screen_canvas_;
 };

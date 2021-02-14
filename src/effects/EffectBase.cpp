@@ -1,5 +1,7 @@
 #include "EffectBase.hpp"
 
+#include <signal.h>
+
 namespace
 {
     volatile bool interrupt_received = false;
@@ -21,7 +23,7 @@ namespace
     }
 } // namespace
 
-EffectBase::EffectBase(Canvas *canvas)
+EffectBase::EffectBase(rgb_matrix::Canvas *canvas)
     : canvas_(canvas)
 {
     initHandlers();

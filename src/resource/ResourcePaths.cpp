@@ -17,23 +17,3 @@ std::string getResourcePath()
 {
     return getRootPath() + "/res/";
 }
-
-std::string SHADER_PATH(const std::string& filename)
-{
-    return getResourcePath() + "shaders/" + filename;
-}
-
-std::string MODEL_PATH(const std::string& filename)
-{
-    return getResourcePath() + "models/" + filename;
-}
-
-std::string VOXEL_PATH(const std::string& filename)
-{
-    return getResourcePath() + "voxels/" + filename;
-}
-
-std::string URDF_PATH(const std::string& filename)
-{
-    return getResourcePath() + "robots/" + filename;
-}

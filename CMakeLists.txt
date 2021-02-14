@@ -38,6 +38,7 @@ add_executable( ${APP_NAME}
 ./src/main.cpp
 ./src/Application.cpp
 ./src/Utilities.cpp
+./src/ConfigParser.cpp
 ./src/effects/EffectBase.cpp
 ./src/math/Angle.cpp
 ./src/rendering/Image.cpp
