@@ -5,8 +5,6 @@
 #include <sstream>
 #include <bitset>
 
-#include <SDL.h>
-
 namespace Util
 {
     template<typename T>
@@ -24,6 +22,4 @@ namespace Util
     }
 
     float randomize(float min, float max);
-    
-    bool isKeyPressed(SDL_Scancode key);
 }

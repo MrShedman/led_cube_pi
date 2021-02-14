@@ -14,11 +14,4 @@ float randomize(float min, float max)
 	std::uniform_real_distribution<float> distribution(min, max);
 	return distribution(generator);
 }
-
-bool isKeyPressed(SDL_Scancode key)
-{
-    const Uint8 *currentKeyStates = SDL_GetKeyboardState(NULL);
-
-    return currentKeyStates[key];
-}
 }

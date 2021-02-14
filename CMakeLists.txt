@@ -11,6 +11,14 @@ find_package(YAML-CPP REQUIRED)
 
 add_definitions(-DGLM_ENABLE_EXPERIMENTAL)
 
+
+include_directories(${PROJECT_SOURCE_DIR}/lib/matrix/lib)
+include_directories(${PROJECT_SOURCE_DIR}/lib/matrix/include)
+
+file(GLOB_RECURSE RGB_SRC_FILES ${PROJECT_SOURCE_DIR}/lib/matrix/lib/*.cc)
+file(GLOB_RECURSE RGB_SRC_FILES ${PROJECT_SOURCE_DIR}/lib/matrix/lib/*.c)
+file(GLOB_RECURSE RGB_HEADER_FILES ${PROJECT_SOURCE_DIR}/lib/matrix/include/*.h)
+
 include_directories(
     ${GLM_INCLUDE_DIRS}
     ${YAML_CPP_INCLUDE_DIR}
@@ -34,7 +42,10 @@ add_executable( ${APP_NAME}
 ./lib/chrono/rate.cpp
 ./lib/chrono/time.cpp
 ./lib/filter/filter.cpp
+${RGB_SRC_FILES}
 )
 
 target_link_libraries( ${APP_NAME} 
-${YAML_CPP_LIBRARIES})
+${YAML_CPP_LIBRARIES}
+-lpthread curl
+)
