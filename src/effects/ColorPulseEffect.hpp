@@ -16,7 +16,7 @@ public:
         continuum = 0;
     }
 
-    void OnFrame() override
+    void OnFrame(const Time& dt) override
     {
         continuum += 1;
         continuum %= 3 * 255;

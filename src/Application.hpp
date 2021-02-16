@@ -2,21 +2,33 @@
 
 #include "chrono/time.h"
 
+#include "led-matrix.h"
+
+#include "effects/EffectBase.hpp"
+
+#include <map>
+
 class Application
 {
 public:
 
 	Application();
 
+    bool init();
+
 	void run();
 
 	void close()
 	{
+        is_open = false;
 	}
 
 private:
 
-	const Time timePerFrame = seconds(1.0f / 60.0f);
+	const Time timePerFrame = hertz(100.0f);
 
-	void render();
+    bool is_open;
+    rgb_matrix::RGBMatrix* matrix;
+    int current_effect_id;
+    std::map<int, EffectBase::Ptr> effects;
 };
