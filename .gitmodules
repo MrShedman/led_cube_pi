@@ -1,3 +1,6 @@
 [submodule "lib/matrix"]
 	path = lib/matrix
 	url = https://github.com/hzeller/rpi-rgb-led-matrix.git
+[submodule "lib/blynk-library"]
+	path = lib/blynk-library
+	url = https://github.com/blynkkk/blynk-library

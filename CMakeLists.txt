@@ -10,6 +10,8 @@ find_package(glm REQUIRED)
 find_package(YAML-CPP REQUIRED)
 
 add_definitions(-DGLM_ENABLE_EXPERIMENTAL)
+add_definitions(-DLINUX)
+add_definitions(-DRASPBERRY)
 
 file(GLOB rpi_matrix_HEADERS lib/matrix/include/*.h)
 file(GLOB rpi_matrix_SOURCES lib/matrix/lib/*.c*)
@@ -19,7 +21,18 @@ add_library(rpi_matrix STATIC ${rpi_matrix_HEADERS} ${rpi_matrix_SOURCES})
 target_link_libraries(rpi_matrix
 	pthread
 	rt
-	m)
+	m
+    stdc++fs)
+
+file(GLOB blynk_HEADERS lib/blynk-library/src/*.h)
+file(GLOB blynk_SOURCES lib/blynk-library/src/utility/*.c*)
+
+add_library(blynk STATIC ${blynk_HEADERS} ${blynk_SOURCES})
+
+target_link_libraries(blynk
+	pthread
+	rt
+	wiringPi)
 
 include_directories(
     ${GLM_INCLUDE_DIRS}
@@ -32,6 +45,8 @@ include_directories(
     src/resource/
     lib/
     lib/matrix/include/
+    lib/blynk-library/linux/
+    lib/blynk-library/src/
 )
 
 add_executable( ${APP_NAME} 
@@ -39,6 +54,8 @@ add_executable( ${APP_NAME}
 ./src/Application.cpp
 ./src/Utilities.cpp
 ./src/ConfigParser.cpp
+./src/i2c.cpp
+./src/mpu9250.cpp
 ./src/math/Angle.cpp
 ./src/rendering/Image.cpp
 ./src/rendering/Transform.cpp
@@ -52,4 +69,5 @@ add_executable( ${APP_NAME}
 target_link_libraries( ${APP_NAME} 
 ${YAML_CPP_LIBRARIES}
 rpi_matrix
+blynk
 )

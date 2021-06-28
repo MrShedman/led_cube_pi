@@ -6,6 +6,9 @@
 
 #include "effects/EffectBase.hpp"
 
+#include "i2c.hpp"
+#include "mpu9250.hpp"
+
 #include <map>
 
 class Application
@@ -26,6 +29,9 @@ public:
 private:
 
 	const Time timePerFrame = hertz(100.0f);
+
+    I2C* i2c;
+    MPU9250* mpu9250;
 
     bool is_open;
     rgb_matrix::RGBMatrix* matrix;

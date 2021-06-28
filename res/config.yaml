@@ -21,3 +21,5 @@ gpio_slowdown: 1
 daemon: 0
 drop_privileges: 1
 do_gpio_init: True
+imu_dev: "/dev/i2c-0"
+imu_address: 0x68
