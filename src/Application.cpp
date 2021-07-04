@@ -42,6 +42,17 @@ BLYNK_WRITE(V1)
     imu_print = param[0].asInt();
 }
 
+BLYNK_WRITE(V2)
+{
+    printf("%s\n", param.asStr());
+}
+
+void imu_callback(void *v_imu)
+{
+    MPU9250* p_imu = static_cast<MPU9250*>(v_imu);
+
+    Blynk.virtualWrite(V0, p_imu->die_temperature_c());
+}
 
 namespace
 {
@@ -95,9 +106,7 @@ bool Application::init()
     mpu9250 = new MPU9250(i2c, configParser.get_imu_address());
 
     Blynk.begin(configParser.get_blynk_auth().c_str(), configParser.get_blynk_serv().c_str(), configParser.get_blynk_port());
-    tmr.setInterval(1000, [](){
-      Blynk.virtualWrite(V0, BlynkMillis()/1000);
-    });
+    tmr.setInterval(1000, imu_callback, mpu9250);
 
     is_open = true;
     return true;
