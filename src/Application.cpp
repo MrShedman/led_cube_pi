@@ -26,10 +26,6 @@
 static BlynkTransportSocket _blynkTransport;
 BlynkSocket Blynk(_blynkTransport);
 
-// static const char *auth = "0f8Meh0pQ71skG-NRMDlprEmh8KgRCTq";
-// static const char *serv = "localhost";
-// static uint16_t port = 8080;
-
 #include <BlynkWidgets.h>
 
 BlynkTimer tmr;
