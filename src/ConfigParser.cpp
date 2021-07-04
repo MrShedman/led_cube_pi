@@ -1,6 +1,6 @@
 #include "ConfigParser.hpp"
 
-void ConfigParser::parseYaml(const std::string &yaml)
+void ConfigParser::parseMatrixYaml(const std::string &yaml)
 {
     YAML::Node config = YAML::LoadFile(yaml);
 
@@ -36,6 +36,23 @@ void ConfigParser::parseYaml(const std::string &yaml)
 
     imu_dev = config["imu_dev"].as<std::string>();
     imu_address = config["imu_address"].as<int>();
+}
+
+void ConfigParser::parseIMUYaml(const std::string &yaml)
+{
+    YAML::Node config = YAML::LoadFile(yaml);
+
+    imu_dev = config["imu_dev"].as<std::string>();
+    imu_address = config["imu_address"].as<int>();
+}
+
+void ConfigParser::parseBlynkYaml(const std::string &yaml)
+{
+    YAML::Node config = YAML::LoadFile(yaml);
+
+    auth = config["auth"].as<std::string>();
+    serv = config["serv"].as<std::string>();
+    port = config["port"].as<int>();
 }
 
 void ConfigParser::parseString(const char *opt, std::string name, YAML::Node &node)

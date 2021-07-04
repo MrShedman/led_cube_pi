@@ -10,7 +10,9 @@ class ConfigParser
 {
 public:
     
-    void parseYaml(const std::string& yaml);
+    void parseMatrixYaml(const std::string& yaml);
+    void parseIMUYaml(const std::string& yaml);
+    void parseBlynkYaml(const std::string& yaml);
 
     const rgb_matrix::RGBMatrix::Options& getMatrixOptions() const
     {
@@ -31,6 +33,21 @@ public:
     {
         return imu_address;
     }
+    
+    std::string get_blynk_auth() const
+    {
+        return auth;
+    }
+    
+    std::string get_blynk_serv() const
+    {
+        return serv;
+    }
+
+    int get_blynk_port() const
+    {
+        return port;
+    }
 
 private:
 
@@ -39,6 +56,11 @@ private:
     std::map<std::string, std::string> string_value_map;
     rgb_matrix::RGBMatrix::Options matrix_options;
     rgb_matrix::RuntimeOptions runtime_options;
+    
     std::string imu_dev;
     uint8_t imu_address;
+    
+    std::string auth;
+    std::string serv;
+    int port;
 };

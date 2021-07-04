@@ -27,9 +27,9 @@
 static BlynkTransportSocket _blynkTransport;
 BlynkSocket Blynk(_blynkTransport);
 
-static const char *auth = "0f8Meh0pQ71skG-NRMDlprEmh8KgRCTq";
-static const char *serv = "localhost";
-static uint16_t port = 8080;
+// static const char *auth = "0f8Meh0pQ71skG-NRMDlprEmh8KgRCTq";
+// static const char *serv = "localhost";
+// static uint16_t port = 8080;
 
 #include <BlynkWidgets.h>
 
@@ -73,7 +73,9 @@ bool Application::init()
     initHandlers();
 
     ConfigParser configParser;
-    configParser.parseYaml(getResourcePath() + "config.yaml");
+    configParser.parseMatrixYaml(getResourcePath() + "matrix.yaml");
+    configParser.parseIMUYaml(getResourcePath() + "imu.yaml");
+    configParser.parseBlynkYaml(getResourcePath() + "blynk.yaml");
 
     // rgb_matrix::RGBMatrix::Options matrix_options = configParser.getMatrixOptions();
     // rgb_matrix::RuntimeOptions runtime_opt = configParser.getRuntimeOptions();
@@ -91,7 +93,7 @@ bool Application::init()
     i2c = new I2C(configParser.get_imu_dev(), configParser.get_imu_address());
     mpu9250 = new MPU9250(i2c, configParser.get_imu_address());
 
-    Blynk.begin(auth, serv, port);
+    Blynk.begin(configParser.get_blynk_auth().c_str(), configParser.get_blynk_serv().c_str(), configParser.get_blynk_port());
     tmr.setInterval(1000, [](){
       Blynk.virtualWrite(V0, BlynkMillis()/1000);
     });
