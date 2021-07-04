@@ -4,7 +4,6 @@
 
 #include "chrono/clock.h"
 
-#include "ConfigParser.hpp"
 #include "resource/ResourcePaths.hpp"
 #include "effects/ColorPulseEffect.hpp"
 
@@ -35,9 +34,12 @@ BlynkSocket Blynk(_blynkTransport);
 
 BlynkTimer tmr;
 
+int imu_print = 0;
+
 BLYNK_WRITE(V1)
 {
     printf("Got a value: %s\n", param[0].asStr());
+    imu_print = param[0].asInt();
 }
 
 
@@ -72,7 +74,6 @@ bool Application::init()
 {
     initHandlers();
 
-    ConfigParser configParser;
     configParser.parseMatrixYaml(getResourcePath() + "matrix.yaml");
     configParser.parseIMUYaml(getResourcePath() + "imu.yaml");
     configParser.parseBlynkYaml(getResourcePath() + "blynk.yaml");
@@ -108,7 +109,7 @@ void Application::run()
     Clock clock;
     while (!interrupt_received && is_open)
     {
-	Blynk.run();
+	    Blynk.run();
     	tmr.run();
 
         //effects[current_effect_id]->OnFrame(timePerFrame);
@@ -116,6 +117,10 @@ void Application::run()
         sleep(timePerFrame - dt);
         frame_id++;
         mpu9250->Read();
+        if (imu_print == 1)
+        {
+            std::cout << mpu9250->gyro_radps() << ", " << mpu9250->accel_mps2() << mpu9250->die_temperature_c() << std::endl;
+        }
 //        std::cout << mpu9250->gyro_radps() << ", " << mpu9250->accel_mps2() << ", " << mpu9250->die_temperature_c() << std::endl;
         //std::cout << "Frame: " << frame_id << std::endl;
     }

@@ -5,6 +5,7 @@
 #include "led-matrix.h"
 
 #include "effects/EffectBase.hpp"
+#include "ConfigParser.hpp"
 
 #include "i2c.hpp"
 #include "mpu9250.hpp"
@@ -29,6 +30,8 @@ public:
 private:
 
 	const Time timePerFrame = hertz(100.0f);
+
+    ConfigParser configParser;
 
     I2C* i2c;
     MPU9250* mpu9250;

@@ -24,7 +24,7 @@ public:
         return runtime_options;
     }
 
-    std::string get_imu_dev() const
+    const std::string& get_imu_dev() const
     {
         return imu_dev;
     }
@@ -34,12 +34,12 @@ public:
         return imu_address;
     }
     
-    std::string get_blynk_auth() const
+    const std::string& get_blynk_auth() const
     {
         return auth;
     }
     
-    std::string get_blynk_serv() const
+    const std::string& get_blynk_serv() const
     {
         return serv;
     }

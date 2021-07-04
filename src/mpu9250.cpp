@@ -122,22 +122,22 @@ bool MPU9250::Begin()
         return false;
     }
     /* Set the accel range to 16G by default */
-    if (!ConfigAccelRange(ACCEL_RANGE_16G))
+    if (!ConfigAccelRange(ACCEL_RANGE_4G))
     {
         return false;
     }
     /* Set the gyro range to 2000DPS by default*/
-    if (!ConfigGyroRange(GYRO_RANGE_2000DPS))
+    if (!ConfigGyroRange(GYRO_RANGE_250DPS))
     {
         return false;
     }
     /* Set the DLPF to 20HZ by default */
-    if (!ConfigDlpf(DLPF_BANDWIDTH_20HZ))
+    if (!ConfigDlpf(DLPF_BANDWIDTH_184HZ))
     {
         return false;
     }
     /* Set the SRD to 0 by default */
-    if (!ConfigSrd(0))
+    if (!ConfigSrd(4))
     {
         return false;
     }

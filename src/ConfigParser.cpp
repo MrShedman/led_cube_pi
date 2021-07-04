@@ -1,5 +1,7 @@
 #include "ConfigParser.hpp"
 
+#include <iostream>
+
 void ConfigParser::parseMatrixYaml(const std::string &yaml)
 {
     YAML::Node config = YAML::LoadFile(yaml);
@@ -33,9 +35,6 @@ void ConfigParser::parseMatrixYaml(const std::string &yaml)
     runtime_options.daemon = config["daemon"].as<int>();
     runtime_options.drop_privileges = config["drop_privileges"].as<int>();
     runtime_options.do_gpio_init = config["do_gpio_init"].as<bool>();
-
-    imu_dev = config["imu_dev"].as<std::string>();
-    imu_address = config["imu_address"].as<int>();
 }
 
 void ConfigParser::parseIMUYaml(const std::string &yaml)
@@ -53,6 +52,8 @@ void ConfigParser::parseBlynkYaml(const std::string &yaml)
     auth = config["auth"].as<std::string>();
     serv = config["serv"].as<std::string>();
     port = config["port"].as<int>();
+
+    std::cout << "Blynk yaml: " << auth << ", " << serv << ", " << port << std::endl;
 }
 
 void ConfigParser::parseString(const char *opt, std::string name, YAML::Node &node)
